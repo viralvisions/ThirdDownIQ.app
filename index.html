@@ -1,10 +1,443 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>GridironIQ</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GridironIQ - Prove Your Football IQ</title>
+    <meta name="description" content="The NFL intelligence game that measures your football IQ through real-time predictions. Think you know football? Prove it.">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f172a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        /* Animated background */
+        .stadium-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at top, rgba(34, 197, 94, 0.1) 0%, transparent 60%),
+                radial-gradient(ellipse at bottom left, rgba(59, 130, 246, 0.1) 0%, transparent 60%),
+                #0f172a;
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .logo {
+            font-size: 48px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #22c55e, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+        
+        .tagline {
+            font-size: 20px;
+            color: #94a3b8;
+            margin-bottom: 30px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #ffffff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 24px;
+            color: #cbd5e1;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Email Signup */
+        .signup-form {
+            display: flex;
+            gap: 10px;
+            max-width: 500px;
+            margin: 0 auto 60px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .email-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 16px 24px;
+            font-size: 18px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .email-input:focus {
+            outline: none;
+            border-color: #22c55e;
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .email-input::placeholder {
+            color: #94a3b8;
+        }
+        
+        .submit-btn {
+            padding: 16px 32px;
+            font-size: 18px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.4);
+        }
+        
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 60px 20px;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(34, 197, 94, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #22c55e;
+        }
+        
+        .feature-desc {
+            font-size: 16px;
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+        
+        /* Game Preview */
+        .preview {
+            text-align: center;
+            padding: 80px 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 30px;
+            margin: 60px 0;
+        }
+        
+        .preview h2 {
+            font-size: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .iq-display {
+            font-size: 120px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #22c55e, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .iq-label {
+            font-size: 24px;
+            color: #94a3b8;
+            margin-bottom: 40px;
+        }
+        
+        /* CTA Section */
+        .cta {
+            text-align: center;
+            padding: 80px 20px;
+        }
+        
+        .cta h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            font-size: 20px;
+            color: #cbd5e1;
+            margin-bottom: 40px;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #64748b;
+        }
+        
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: rgba(34, 197, 94, 0.2);
+            border: 2px solid #22c55e;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 18px;
+            color: #22c55e;
+            margin-bottom: 20px;
+        }
+        
+        /* Launch Stats */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            padding: 40px 20px;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: bold;
+            color: #22c55e;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 16px;
+            color: #94a3b8;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .iq-display {
+                font-size: 80px;
+            }
+            
+            .logo {
+                font-size: 36px;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>GridironIQ</h1>
-    <p>AI-powered football analytics coming soon!</p>
+    <div class="stadium-bg"></div>
+    
+    <div class="container">
+        <header>
+            <div class="logo">GridironIQ</div>
+            <p class="tagline">The NFL Intelligence Game</p>
+        </header>
+        
+        <section class="hero">
+            <h1>Think You Know Football?<br>Prove It.</h1>
+            <p>Test your NFL IQ by predicting plays in real-time. Compete with friends. Climb the genius ranks.</p>
+            
+            <form class="signup-form" id="signupForm">
+                <input 
+                    type="email" 
+                    class="email-input" 
+                    placeholder="Enter your email" 
+                    required
+                    id="emailInput"
+                >
+                <button type="submit" class="submit-btn">Get Early Access</button>
+            </form>
+            
+            <div class="success-message" id="successMessage">
+                🎉 You're in! We'll notify you when GridironIQ launches.
+            </div>
+        </section>
+        
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number" id="signupCount">0</div>
+                <div class="stat-label">Early Access Signups</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">Aug 2025</div>
+                <div class="stat-label">Preseason Launch</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">Free</div>
+                <div class="stat-label">To Start Playing</div>
+            </div>
+        </div>
+        
+        <section class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <h3 class="feature-title">Test Your Football IQ</h3>
+                <p class="feature-desc">Make predictions on every play. See how your football intelligence stacks up against other fans.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Real-Time Predictions</h3>
+                <p class="feature-desc">30 seconds to call the play. Instant results. Build your IQ score throughout the game.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <h3 class="feature-title">Compete & Climb</h3>
+                <p class="feature-desc">Challenge friends. Join leagues. Rise from Rookie to Genius. Prove you're the smartest fan.</p>
+            </div>
+        </section>
+        
+        <section class="preview">
+            <h2>What's Your Football IQ?</h2>
+            <div class="iq-display">142</div>
+            <p class="iq-label">Above Average Intelligence</p>
+            <p style="font-size: 18px; color: #94a3b8;">Most fans score between 85-115. Think you can beat 142?</p>
+        </section>
+        
+        <section class="cta">
+            <h2>Launching During NFL Preseason</h2>
+            <p>Be first to play when football returns. Test your IQ before the real games begin.</p>
+            <form class="signup-form" id="signupForm2">
+                <input 
+                    type="email" 
+                    class="email-input" 
+                    placeholder="Enter your email" 
+                    required
+                >
+                <button type="submit" class="submit-btn">Join Beta</button>
+            </form>
+        </section>
+        
+        <footer>
+            <p>&copy; 2025 GridironIQ. The smartest way to watch football.</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Handle form submissions
+        function handleSignup(e) {
+            e.preventDefault();
+            const email = e.target.querySelector('input[type="email"]').value;
+            
+            // Save to localStorage (replace with real backend later)
+            let signups = JSON.parse(localStorage.getItem('gridironiq_signups') || '[]');
+            signups.push({ email, timestamp: new Date().toISOString() });
+            localStorage.setItem('gridironiq_signups', JSON.stringify(signups));
+            
+            // Show success message
+            document.getElementById('successMessage').style.display = 'block';
+            e.target.reset();
+            
+            // Update count
+            updateSignupCount();
+            
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                document.getElementById('successMessage').style.display = 'none';
+            }, 5000);
+        }
+        
+        // Update signup count
+        function updateSignupCount() {
+            const signups = JSON.parse(localStorage.getItem('gridironiq_signups') || '[]');
+            document.getElementById('signupCount').textContent = signups.length;
+        }
+        
+        // Attach handlers
+        document.getElementById('signupForm').addEventListener('submit', handleSignup);
+        document.getElementById('signupForm2').addEventListener('submit', handleSignup);
+        
+        // Initial count
+        updateSignupCount();
+        
+        // Animate numbers on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'pulse 2s ease-in-out infinite';
+                }
+            });
+        });
+        
+        document.querySelectorAll('.stat-number').forEach(el => observer.observe(el));
+    </script>
 </body>
 </html>
