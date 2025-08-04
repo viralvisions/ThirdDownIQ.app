@@ -1,2 +1,1 @@
-# GridironIQ
-GridironIQ leverages artificial intelligence to deliver comprehensive football analytics. Features include game predictions, player stats analysis, team performance metrics, and data-driven insights for NFL and college football enthusiasts, fantasy players, and sports analysts.
+The AI-powered video companion that transforms how you watch football. ThirdDownIQ predicts every play in real-time while you watch on TV, turning passive viewing into an interactive experience. Test your football IQ against our AI on crucial moments, learn why plays work through instant analysis, and track your prediction accuracy across the season. Works with any broadcast, cable, streaming, or sports bar. No gambling, just pure football intelligence.
